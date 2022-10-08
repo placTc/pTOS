@@ -12,16 +12,16 @@ loadDrive:
 	pop dx
 	cmp dh, al
 	jne diskError ; read sectors not equal to instructed amount (NOT ALWAYS TRUE, REPLACE WITH SOMETHING BETTER)
-	mov bx, _diskSuccess
+	push _diskSuccess
 	call printNullTerminatedString
-	mov bx, _newline
+	push _newline
 	call printNullTerminatedString
 	ret
 
 diskError:
-	mov bx , _diskError
+	push _diskError
 	call printNullTerminatedString
-	mov bx, _newline
+	push _newline
 	call printNullTerminatedString
 	jmp $
 

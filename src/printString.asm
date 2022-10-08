@@ -1,21 +1,30 @@
 printNullTerminatedString:
+	push bp
+	mov bp, sp
 	pusha
+	mov si, [bp+4]
 printNullTerminatedString_loop:
 	mov ah, 0x0E
-	mov al, [bx]
+	mov al, [si]
 	cmp al, 0
 	je printNullTerminatedString_end
-	push bx
 	mov bx, 0x000F
 	int 0x10
-	pop bx
-	inc bx
+	inc si
 	jmp printNullTerminatedString_loop
 printNullTerminatedString_end:
 	popa
-	ret
+	mov sp, bp
+	pop bp
+	ret 2
 
-printCharFromAL:
+
+printChar:
+	push bp
+	mov bp, sp
+	mov al, [bp+4]
 	mov ah, 0x0E
 	int 0x10
-	ret
+	mov sp, bp
+	pop bp
+	ret 2
